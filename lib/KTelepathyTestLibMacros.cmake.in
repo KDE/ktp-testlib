@@ -1,0 +1,28 @@
+function(ktelepathy_setup_test_environment)
+    find_program(SH sh)
+
+    set(test_environment "
+    export abs_top_builddir=${CMAKE_BINARY_DIR}
+    export abs_top_srcdir=${CMAKE_SOURCE_DIR}
+    export XDG_DATA_HOME=@KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@
+    export XDG_DATA_DIRS=@KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@
+    ")
+
+    file(WRITE ${CMAKE_BINARY_DIR}/KTelepathy-testenv/runGenericTest.sh "${test_environment} $@")
+
+    file(WRITE ${CMAKE_BINARY_DIR}/KTelepathy-testenv/runDbusTest.sh "
+                ${test_environment}
+                sh @KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@/tools/with-session-bus.sh --session -- $@
+                ")
+
+endfunction(ktelepathy_setup_test_environment)
+
+function(add_ktelepathy_test fancyName executable)
+    find_program(SH sh)
+    add_test(${fancyName} ${SH} ${CMAKE_BINARY_DIR}/KTelepathy-testenv/runGenericTest.sh ${executable})
+endfunction(add_ktelepathy_test fancyName executable)
+
+function(add_ktelepathy_dbus_test fancyName executable)
+    find_program(SH sh)
+    add_test(${fancyName} ${SH} ${CMAKE_BINARY_DIR}/KTelepathy-testenv/runDbusTest.sh ${executable})
+endfunction(add_ktelepathy_dbus_test fancyName executable)

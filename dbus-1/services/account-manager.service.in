@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.freedesktop.Telepathy.AccountManager
+Exec=@PYTHON_EXECUTABLE@ @KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@/python/account-manager.py

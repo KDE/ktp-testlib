@@ -1,0 +1,9 @@
+Telepathy-testlib is a static library for building unit tests of KDE/Telepathy components.
+
+It allows complicated unit tests which make use of a Private DBus Session Bus and a virtuoso
+sandbox to avoid making a mess of the virtuoso/telepathy/dbus installations running on the
+system where the tests are run.
+
+This code is based on the unit tests code for telepathy-qt4, which can be found here:
+http://git.collabora.co.uk/?p=telepathy-qt4.git;a=summary
+
