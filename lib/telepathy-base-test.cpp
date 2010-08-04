@@ -127,6 +127,8 @@ void TelepathyBaseTest::cleanupTestCaseImpl()
 {
     Tp::GlibTest::cleanupTestCaseImpl();
 
+    delete d->model;
+
     if (d->tmpDir) {
         delete d->tmpDir;
     }
