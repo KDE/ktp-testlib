@@ -22,13 +22,57 @@ set (telepathy_testlib_HDRS
     # Enable also the GLib wrappers
     add_subdirectory(glib)
 
-    set(telepathy_testlib_SRCS ${telepathy_qt4_testlib_SRCS}
-        glibtest.cpp)
+    set(telepathy_testlib_SRCS ${telepathy_testlib_SRCS}
+        glibtest.cpp telepathy-base-test.cpp)
 
-    set(telepathy_testlib_HDRS ${telepathy_qt4_testlib_HEADERS}
-        glibtest.h)
+    set(telepathy_testlib_HDRS ${telepathy_testlib_HDRS}
+        glibtest.h telepathy-base-test.h)
 
 #endif(ENABLE_TP_GLIB_TESTS)
+
+# Find telepathy.trig, which is installed already by telepathy-integration-daemon.
+find_file (TELEPATHY_TRIG_SOURCE
+           telepathy.trig
+           PATHS "${DATA_INSTALL_DIR}" "${KDE4_DATA_DIR}" "${CMAKE_INSTALL_PREFIX}/share"
+           ENV XDG_DATA_DIRS
+           PATH_SUFFIXES "ontology/telepathy"
+)
+
+# We depend on telepathy.trig, so fail horribly if it's not found.${CMAKE_MODULE_PATH}
+if (NOT TELEPATHY_TRIG_SOURCE)
+    message (ERROR_FATAL
+             "Could not find telepathy.trig Telepathy source file. You must install telepathy-integration-daemon before trying to build this program."
+    )
+endif (NOT TELEPATHY_TRIG_SOURCE)
+
+# Add the ontologies we want to build the vocabulary for.
+soprano_add_ontology (pimo_SRCS
+                      ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/pimo/pimo.trig
+                      "PIMO"
+                      "Nepomuk::Vocabulary"
+                      "trig"
+)
+
+soprano_add_ontology (nco_SRCS
+                      ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nco.trig
+                      "NCO"
+                      "Nepomuk::Vocabulary"
+                      "trig"
+)
+
+soprano_add_ontology (nao_SRCS
+                      ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nepomuk/nao.trig
+                      "NAO"
+                      "Nepomuk::Vocabulary"
+                      "trig"
+)
+
+soprano_add_ontology (telepathy_SRCS
+                      ${TELEPATHY_TRIG_SOURCE}
+                      "Telepathy"
+                      "Nepomuk::Vocabulary"
+                      "trig"
+)
 
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibMacros.cmake.in"
@@ -44,6 +88,10 @@ configure_file(
 kde4_add_library (ktelepathytest
                   STATIC
                   ${telepathy_testlib_SRCS}
+                  ${telepathy_SRCS}
+                  ${pimo_SRCS}
+                  ${nao_SRCS}
+                  ${nco_SRCS}
 )
 
 target_link_libraries (ktelepathytest
@@ -70,7 +118,7 @@ install (TARGETS ktelepathytest
          COMPONENT Devel
 )
 
-install (FILES ${telepathy_testlib__HDRS}
+install (FILES ${telepathy_testlib_HDRS}
          DESTINATION ${INCLUDE_INSTALL_DIR}/KTelepathy/TestLib
          COMPONENT Devel
 )
@@ -84,4 +132,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
         DESTINATION ${KDE4_LIB_INSTALL_DIR}/KTelepathy/cmake)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibConfig.cmake"
         DESTINATION ${KDE4_LIB_INSTALL_DIR}/KTelepathy/cmake)
+
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/with-session-bus.sh"
+         DESTINATION "${KTELEPATHY_TESTLIB_DATA_INSTALL_DIR}/tools")
 

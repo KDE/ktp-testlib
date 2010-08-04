@@ -10,6 +10,8 @@ find_package (KDE4 4.4.75 REQUIRED)
 find_package (TelepathyQt4 REQUIRED)
 find_package (Nepomuk REQUIRED)
 find_package (Soprano REQUIRED)
+set(SDO_MIN_VERSION "0.3.60")
+find_package(SharedDesktopOntologies ${SDO_MIN_VERSION} REQUIRED)
 
 # Find python version >= 2.5
 find_package(PythonLibrary REQUIRED)

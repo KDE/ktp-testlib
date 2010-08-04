@@ -22,7 +22,7 @@
 #ifndef TELEPATHY_BASE_TEST_H
 #define TELEPATHY_BASE_TEST_H
 
-//#include <TelepathyQt4/TestLib/glibtest.h>
+#include "glibtest.h"
 #include <Nepomuk/Resource>
 #include <TelepathyQt4/Types>
 
@@ -44,15 +44,12 @@ public:
 
     virtual void initTestCaseImpl();
     virtual void cleanupTestCaseImpl();
-    virtual void createAccount();
+  //  virtual void createAccount();
 
     void setupAccountMonitor();
 
     Soprano::Model *mainModel();
-    TelepathyAccountMonitor *accountMonitor();
     Nepomuk::Resource mePersonContact();
-    Tp::AccountPtr account();
-    Tp::ConnectionPtr connection();
 
 private:
     class Private;

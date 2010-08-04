@@ -13,7 +13,7 @@ endif(MINGW)
 elseif(APPLE)
   set(KTELEPATHYTESTLIB_LIBRARIES     "@KDE4_LIB_INSTALL_DIR@/ktelepathytest.dylib")
 else()
-  set(KTELEPATHYTESTLIB_LIBRARIES     "@KDE4_LIB_INSTALL_DIR@/ktelepathytest.so")
+  set(KTELEPATHYTESTLIB_LIBRARIES     "@KDE4_LIB_INSTALL_DIR@/libktelepathytest.a")
 endif()
 
 set(CMAKE_MODULE_PATH "@KDE4_LIB_INSTALL_DIR@/KTelepathy/cmake" ${CMAKE_MODULE_PATH})
