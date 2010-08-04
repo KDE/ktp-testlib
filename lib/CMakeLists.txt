@@ -12,31 +12,23 @@ set (telepathy_testlib_HDRS
 )
 
 #if(ENABLE_TP_GLIB_TESTS)
-#    # Enable also the GLib wrappers
-#    add_subdirectory(glib)
-#
-#    include_directories(${TPGLIB_INCLUDE_DIRS})
-#
-#    set(telepathy_qt4_testlib_SRCS ${telepathy_qt4_testlib_SRCS}
-#        glibtest.cpp)
-#
-#    set(telepathy_qt4_testlib_MOC_HEADERS ${telepathy_qt4_testlib_MOC_HEADERS}
-#        glibtest.h)
-#
-#    set(telepathy_qt4_testlib_HEADERS ${telepathy_qt4_testlib_HEADERS}
-#        glibtest.h)
-#
-#    set(telepathy_qt4_testlib_LIBS ${telepathy_qt4_testlib_LIBS} tp-glib-tests)
+
+    # Find telepathy-glib
+    set(REQUIRED_TP_GLIB 0.10.0)
+    pkg_check_modules(TPGLIB telepathy-glib>=${REQUIRED_TP_GLIB})
+
+    include_directories(${TPGLIB_INCLUDE_DIRS})
+
+    # Enable also the GLib wrappers
+    add_subdirectory(glib)
+
+    set(telepathy_testlib_SRCS ${telepathy_qt4_testlib_SRCS}
+        glibtest.cpp)
+
+    set(telepathy_testlib_HDRS ${telepathy_qt4_testlib_HEADERS}
+        glibtest.h)
+
 #endif(ENABLE_TP_GLIB_TESTS)
-#
-#file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/_gen")
-# generate client moc files
-#foreach(moc_src ${telepathy_qt4_testlib_MOC_HEADERS})
-#    set(generated_file _gen/${moc_src})
-#    string(REPLACE ".h" ".moc.hpp" generated_file ${generated_file})
-#    qt4_generate_moc_i(${CMAKE_CURRENT_SOURCE_DIR}/${moc_src} ${CMAKE_CURRENT_BINARY_DIR}/${generated_file})
-#    list(APPEND telepathy_qt4_testlib_SRCS ${CMAKE_CURRENT_BINARY_DIR}/${generated_file})
-#endforeach(moc_src ${telepathy_qt4_testlib_MOC_HEADERS})
 
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibMacros.cmake.in"
@@ -58,6 +50,7 @@ target_link_libraries (ktelepathytest
                        ${QT_QTCORE_LIBRARY}
                        ${QT_QTDBUS_LIBRARY}
                        ${TELEPATHY_QT4_LIBRARIES}
+                       ktelepathyglibtest
 )
 
 set_target_properties (ktelepathytest PROPERTIES
