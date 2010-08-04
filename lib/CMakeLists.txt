@@ -2,33 +2,20 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}
                      ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-set (telepathy_testlib_SRCS
+add_subdirectory(glib)
+
+set (ktelepathytest_SRCS
      test.cpp
+     glibtest.cpp
+     telepathy-base-test.cpp
 )
 
-set (telepathy_testlib_HDRS
+set (ktelepathytest_HDRS
      Test
      test.h
+     glibtest.h
+     telepathy-base-test.h
 )
-
-#if(ENABLE_TP_GLIB_TESTS)
-
-    # Find telepathy-glib
-    set(REQUIRED_TP_GLIB 0.10.0)
-    pkg_check_modules(TPGLIB telepathy-glib>=${REQUIRED_TP_GLIB})
-
-    include_directories(${TPGLIB_INCLUDE_DIRS})
-
-    # Enable also the GLib wrappers
-    add_subdirectory(glib)
-
-    set(telepathy_testlib_SRCS ${telepathy_testlib_SRCS}
-        glibtest.cpp telepathy-base-test.cpp)
-
-    set(telepathy_testlib_HDRS ${telepathy_testlib_HDRS}
-        glibtest.h telepathy-base-test.h)
-
-#endif(ENABLE_TP_GLIB_TESTS)
 
 # Find telepathy.trig, which is installed already by telepathy-integration-daemon.
 find_file (TELEPATHY_TRIG_SOURCE
@@ -74,20 +61,9 @@ soprano_add_ontology (telepathy_SRCS
                       "trig"
 )
 
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibMacros.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
-    IMMEDIATE @ONLY)
-
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibConfig.cmake"
-    IMMEDIATE @ONLY)
-
-
 kde4_add_library (ktelepathytest
                   STATIC
-                  ${telepathy_testlib_SRCS}
+                  ${ktelepathytest_SRCS}
                   ${telepathy_SRCS}
                   ${pimo_SRCS}
                   ${nao_SRCS}
@@ -118,21 +94,35 @@ install (TARGETS ktelepathytest
          COMPONENT Devel
 )
 
-install (FILES ${telepathy_testlib_HDRS}
+install (FILES ${ktelepathytest_HDRS}
          DESTINATION ${INCLUDE_INSTALL_DIR}/KTelepathy/TestLib
          COMPONENT Devel
 )
 
-install(FILES python/account-manager.py
-        DESTINATION ${KTELEPATHY_TESTLIB_DATA_INSTALL_DIR}/python
-        COMPONENT Devel
+# Configure and install misc other files
+configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibMacros.cmake.in"
+                "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
+                IMMEDIATE @ONLY
 )
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
-        DESTINATION ${KDE4_LIB_INSTALL_DIR}/KTelepathy/cmake)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibConfig.cmake"
-        DESTINATION ${KDE4_LIB_INSTALL_DIR}/KTelepathy/cmake)
+configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibConfig.cmake.in"
+                "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibConfig.cmake"
+                IMMEDIATE @ONLY
+)
 
-install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/with-session-bus.sh"
-         DESTINATION "${KTELEPATHY_TESTLIB_DATA_INSTALL_DIR}/tools")
+
+install (FILES python/account-manager.py
+         DESTINATION ${KTELEPATHY_TESTLIB_PYTHON_INSTALL_DIR}
+         COMPONENT Devel
+)
+
+install (FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
+         DESTINATION ${KTELEPATHY_TESTLIB_CMAKE_INSTALL_DIR}
+         COMPONENT Devel
+)
+
+install (FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibConfig.cmake"
+         DESTINATION ${KTELEPATHY_TESTLIB_CMAKE_INSTALL_DIR}
+         COMPONENT Devel
+)
 

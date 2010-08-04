@@ -12,7 +12,7 @@
 
   <listen>unix:tmpdir=/tmp</listen>
 
-  <servicedir>@KTELEPATHY_TESTLIB_DBUS_SERVICE_AUTOSTART_DIR@</servicedir>
+  <servicedir>@KTELEPATHY_TESTLIB_DBUS_SERVICE_AUTOSTART_INSTALL_DIR@</servicedir>
 
   <policy context="default">
     <!-- Allow everything to be sent -->
