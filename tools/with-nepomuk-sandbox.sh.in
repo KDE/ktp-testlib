@@ -71,7 +71,8 @@ done
 
 # Run the test case
 echo "Starting test case..."
-eval $@
+e=0
+"$@" || e=$?
 
 # Shutdown the nepomuk server
 echo "Telling nepomukserver to quit (this may take some time)"
@@ -94,4 +95,6 @@ while [ -d $KDEHOME ]
   sleep 1
   rm -rf $KDEHOME 2> /dev/null 
 done
+
+exit $e
 
