@@ -48,7 +48,6 @@ public:
 
     void setupAccountMonitor();
 
-    Soprano::Model *mainModel();
     Nepomuk::Resource mePersonContact();
 
 private:

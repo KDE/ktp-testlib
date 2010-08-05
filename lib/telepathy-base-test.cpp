@@ -33,7 +33,7 @@
 #include <TelepathyQt4/PendingAccount>
 #include <TelepathyQt4/PendingReady>
 
-#include <KTempDir>
+#include <KDebug>
 
 class TelepathyBaseTest::Private
 {
@@ -43,8 +43,6 @@ class TelepathyBaseTest::Private
         Private(TelepathyBaseTest *parent) : q_ptr(parent) {}
         virtual ~Private() {}
 
-        Soprano::Model *model;
-        KTempDir *tmpDir;
         Nepomuk::Resource mePersonContact;
 };
 
@@ -63,23 +61,7 @@ void TelepathyBaseTest::initTestCaseImpl()
 {
     Tp::Test::initTestCaseImpl();
 
-    // Replace the resource manager to sandbox Nepomuk for this test case
-    const Soprano::Backend* backend = Soprano::PluginManager::instance()->discoverBackendByName(QLatin1String("virtuoso"));
-    QVERIFY(backend);
-
-    if (backend->supportsFeatures(Soprano::BackendFeatureStorageMemory)) {
-        qDebug() << "Using memory storage";
-        d->model = backend->createModel(Soprano::BackendSettings() <<
-                                        Soprano::BackendSetting(Soprano::BackendOptionStorageMemory));
-    } else {
-        qDebug() << "Using disk storage";
-        d->tmpDir = new KTempDir();
-        d->model = backend->createModel(Soprano::BackendSettings() <<
-                                                    Soprano::BackendSetting(Soprano::BackendOptionStorageDir,
-                                                                            d->tmpDir->name()));
-    }
-
-    Nepomuk::ResourceManager::instance()->setOverrideMainModel(d->model);
+    Nepomuk::ResourceManager::instance()->init();
 }
 
 void TelepathyBaseTest::initTestCaseConnectionImpl()
@@ -126,12 +108,6 @@ void TelepathyBaseTest::cleanupTestCaseConnectionImpl()
 void TelepathyBaseTest::cleanupTestCaseImpl()
 {
     Tp::GlibTest::cleanupTestCaseImpl();
-
-    delete d->model;
-
-    if (d->tmpDir) {
-        delete d->tmpDir;
-    }
 }
 void TelepathyBaseTest::setupAccountMonitor()
 {
@@ -170,10 +146,6 @@ Nepomuk::Resource TelepathyBaseTest::mePersonContact()
     return d->mePersonContact;
 }
 
-Soprano::Model* TelepathyBaseTest::mainModel()
-{
-    return d->model;
-}
 /*
 void TelepathyBaseTest::createAccount()
 {

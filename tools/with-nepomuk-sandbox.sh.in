@@ -1,0 +1,97 @@
+#!/bin/sh
+#
+# Copyright (C) 2010 Sebastian Trueg <trueg@kde.org>
+# Copyright (C) 2010 Collabora Ltd <info@collabora.co.uk>
+#   @author George Goldberg <george.goldberg@collabora.co.uk>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public
+# License along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+#
+# This script creates a sandboxed KDE home and launches the nepomuk services and their
+# dependencies in such a way as to not interfere with the normal system. It is for use in
+# creating automated unit tests which rely on nepomuk functionality.
+
+# Create an appropriately named temporary directory.
+CNT=0
+KDEHOME=/tmp/kde_test_home_$CNT
+while [ -e $KDEHOME ]
+  do
+  CNT=`expr $CNT + 1`
+  KDEHOME=/tmp/kde_test_home_$CNT
+done
+
+# Set up the basic KDE environment variables to ensure everything is fully sandboxed
+export KDEHOME
+export KDETMP=$KDEHOME/tmp
+export KDEVARTMP=$KDEHOME/vartmp
+export KDESYCOCA=$KDETMP/ksycoca-test
+mkdir -p $KDEHOME
+mkdir -p $KDETMP
+mkdir -p $KDEVARTMP
+
+# Copy the nepomukserverrc into place
+mkdir -p $KDEHOME/share/config
+cp @KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@/nepomukserverrc $KDEHOME/share/config/
+
+# Start the basic KDE components needed.
+echo "Starting new KDE session in $KDEHOME..."
+kbuildsycoca4 2> /dev/null
+kdeinit4 2> /dev/null
+qdbus org.kde.kded /kded org.kde.kded.loadSecondPhase > /dev/null
+
+# Start the nepomuk server (which will automatically start other nepomuk services
+echo "Starting nepomukserver"
+nepomukserver 2> /dev/null
+
+# Wait for the nepomuk storage service to exist and be initialized
+echo "Waiting for nepomuk storage service to be initialized (this may take some time)..."
+while [ ! `qdbus org.kde.NepomukStorage /servicecontrol org.kde.nepomuk.ServiceControl.isInitialized 2> /dev/null` ]
+do
+  sleep 1
+done
+
+while [ false = `qdbus org.kde.NepomukStorage /servicecontrol org.kde.nepomuk.ServiceControl.isInitialized 2> /dev/null` ]
+do
+  sleep 1
+done
+
+# If you need to wait for other services to be ready before starting the test case, do that here.
+
+# Run the test case
+echo "Starting test case..."
+eval $@
+
+# Shutdown the nepomuk server
+echo "Telling nepomukserver to quit (this may take some time)"
+qdbus org.kde.NepomukServer /nepomukserver org.kde.NepomukServer.quit > /dev/null
+
+# Wait for the nepomuk server to finish shutting down
+while [ `qdbus org.kde.NepomukServer /nepomukserver org.kde.nepomuk.NepomukServer.isNepomukEnabled 2> /dev/null` ]
+do
+  sleep 1
+done
+
+# Shutdown the sandboxed KDE session
+echo "Shutting down KDE session..."
+kdeinit4_shutdown
+
+# Clean up the temporary directories
+echo "Cleaning up temporary KDEHOME $KDEHOME"
+while [ -d $KDEHOME ]
+  do
+  sleep 1
+  rm -rf $KDEHOME 2> /dev/null 
+done
+

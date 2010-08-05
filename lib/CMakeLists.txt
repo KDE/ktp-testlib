@@ -110,6 +110,11 @@ configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/KTelepathyTestLibConfig.cmake.in"
                 IMMEDIATE @ONLY
 )
 
+configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/nepomukserverrc.in"
+                "${CMAKE_CURRENT_BINARY_DIR}/nepomukserverrc"
+                IMMEDIATE @ONLY
+)
+
 
 install (FILES python/account-manager.py
          DESTINATION ${KTELEPATHY_TESTLIB_PYTHON_INSTALL_DIR}
@@ -123,6 +128,11 @@ install (FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
 
 install (FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibConfig.cmake"
          DESTINATION ${KTELEPATHY_TESTLIB_CMAKE_INSTALL_DIR}
+         COMPONENT Devel
+)
+
+install (FILES "${CMAKE_CURRENT_BINARY_DIR}/nepomukserverrc"
+         DESTINATION ${KTELEPATHY_TESTLIB_DATA_INSTALL_DIR}
          COMPONENT Devel
 )
 
