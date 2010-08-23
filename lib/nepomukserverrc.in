@@ -39,6 +39,9 @@ autostart=true
 [Service-nepomukfilewatch]
 autostart=false
 
+[Service-nepomukactivitiesservice]
+autostart=false
+
 [main Settings]
 Maximum memory=50
 Storage Dir=
