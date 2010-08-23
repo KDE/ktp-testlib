@@ -67,6 +67,18 @@ do
   sleep 1
 done
 
+# Wait for the nepomuk Query Service to be ready
+echo "Waiting for nepomuk query service to be initialized..."
+while [ ! `qdbus org.kde.nepomuk.services.nepomukqueryservice /servicecontrol org.kde.nepomuk.ServiceControl.isInitialized 2> /dev/null` ]
+do
+  sleep 1
+done
+
+while [ false = `qdbus org.kde.nepomuk.services.nepomukqueryservice /servicecontrol org.kde.nepomuk.ServiceControl.isInitialized 2> /dev/null` ]
+do
+  sleep 1
+done
+
 # If you need to wait for other services to be ready before starting the test case, do that here.
 
 # Run the test case
