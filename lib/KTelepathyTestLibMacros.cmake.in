@@ -5,7 +5,8 @@ function(ktelepathy_setup_test_environment)
     export abs_top_builddir=${CMAKE_BINARY_DIR}
     export abs_top_srcdir=${CMAKE_SOURCE_DIR}
     export XDG_DATA_HOME=@KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@
-    export XDG_DATA_DIRS=@KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@
+    export XDG_DATA_DIRS_OLD=$XDG_DATA_DIRS
+    export XDG_DATA_DIRS=@KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@:$abs_top_builddir/KTelepathy-testenv/share
     ")
 
     file(WRITE ${CMAKE_BINARY_DIR}/KTelepathy-testenv/runGenericTest.sh "${test_environment} $@")

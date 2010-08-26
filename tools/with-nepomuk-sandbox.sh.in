@@ -45,6 +45,18 @@ mkdir -p $KDEVARTMP
 mkdir -p $KDEHOME/share/config
 cp @KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@/nepomukserverrc $KDEHOME/share/config/
 
+# Copy installed ontologies into the Test Environment.
+echo "Copying installed ontologies into the test environment..."
+mkdir -p $abs_top_builddir/KTelepathy-testenv/share/ontology
+IFS=:
+for p in $XDG_DATA_DIRS_OLD
+do
+  if [ -d $p/ontology ]
+  then
+    cp -rn $p/ontology/* $abs_top_builddir/KTelepathy-testenv/share/ontology/
+  fi
+done
+
 # Start the basic KDE components needed.
 echo "Starting new KDE session in $KDEHOME..."
 kbuildsycoca4 2> /dev/null
@@ -99,6 +111,10 @@ done
 # Shutdown the sandboxed KDE session
 echo "Shutting down KDE session..."
 kdeinit4_shutdown
+
+# Cleanup ontologies
+echo "Cleaning up ontologies..."
+rm -rf $abs_top_builddir/KTelepathy-testenv/share
 
 # Clean up the temporary directories
 echo "Cleaning up temporary KDEHOME $KDEHOME"
