@@ -41,7 +41,7 @@ GlibTest::~GlibTest()
 void GlibTest::setupExampleConnection(const QString& account, const QString& accountId,
                                       const QString& protocol, const QString& contactList)
 {
-/*    g_type_init();
+    g_type_init();
     g_set_prgname("conn-roster");
     tp_debug_set_flags("all");
     dbus_g_bus_get(DBUS_BUS_STARTER, 0);
@@ -67,7 +67,7 @@ void GlibTest::setupExampleConnection(const QString& account, const QString& acc
 
     g_free(name);
     g_free(connPath);
-    */
+
 }
 
 QPair< QString, QString > GlibTest::exampleConnectionData() const

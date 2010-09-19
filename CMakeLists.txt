@@ -69,7 +69,7 @@ include_directories (${KDE4_INCLUDES}
 
 # Set variables for some special install directories
 set (KTELEPATHY_TESTLIB_DATA_INSTALL_DIR
-     "${KDE4_DATA_INSTALL_DIR}/KTelepathy/TestLib"
+     "${DATA_INSTALL_DIR}/KTelepathy/TestLib"
 )
 
 set (KTELEPATHY_TESTLIB_DBUS_SERVICE_AUTOSTART_INSTALL_DIR
@@ -86,7 +86,7 @@ set (KTELEPATHY_TESTLIB_PYTHON_INSTALL_DIR
 
 # FIXME: This is blatantly the wrong place to install cmake files to.
 set (KTELEPATHY_TESTLIB_CMAKE_INSTALL_DIR
-     "${KDE4_LIB_INSTALL_DIR}/KTelepathy/cmake"
+     "${LIB_INSTALL_DIR}/KTelepathy/cmake"
 )
 
 # Add subdirectories

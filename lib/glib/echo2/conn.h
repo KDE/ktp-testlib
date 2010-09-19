@@ -14,7 +14,6 @@
 
 #include <glib-object.h>
 #include <telepathy-glib/base-connection.h>
-#include <tests/lib/glib/contacts-conn.h>
 
 G_BEGIN_DECLS
 
@@ -23,11 +22,11 @@ typedef struct _ExampleEcho2ConnectionClass ExampleEcho2ConnectionClass;
 typedef struct _ExampleEcho2ConnectionPrivate ExampleEcho2ConnectionPrivate;
 
 struct _ExampleEcho2ConnectionClass {
-    ContactsConnectionClass parent_class;
+    TpBaseConnectionClass parent_class;
 };
 
 struct _ExampleEcho2Connection {
-    ContactsConnection parent;
+    TpBaseConnection parent;
 
     ExampleEcho2ConnectionPrivate *priv;
 };
@@ -49,6 +48,11 @@ GType example_echo_2_connection_get_type (void);
 #define EXAMPLE_ECHO_2_CONNECTION_GET_CLASS(obj) \
   (G_TYPE_INSTANCE_GET_CLASS ((obj), EXAMPLE_TYPE_ECHO_2_CONNECTION, \
                               ExampleEcho2ConnectionClass))
+
+const gchar * const *example_echo_2_connection_get_guaranteed_interfaces (
+    void);
+const gchar * const *example_echo_2_connection_get_possible_interfaces (
+    void);
 
 G_END_DECLS
 

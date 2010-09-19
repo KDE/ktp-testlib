@@ -1,12 +1,6 @@
 #ifndef _TelepathyQt4_TestLib_Test_HEADER_GUARD_
 #define _TelepathyQt4_TestLib_Test_HEADER_GUARD_
 
-#ifndef IN_TELEPATHY_QT4_HEADER
-#define IN_TELEPATHY_QT4_HEADER
-#endif
-
-#include <TelepathyQt4/TestLib/test.h>
-
-#undef IN_TELEPATHY_QT4_HEADER
+#include <KTelepathy/TestLib/test.h>
 
 #endif

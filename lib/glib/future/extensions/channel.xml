@@ -4,10 +4,10 @@
 
 <tp:title>Channel extensions from the future</tp:title>
 
-<xi:include href="../../../../../spec/Channel_Interface_Conference.xml"/>
-<xi:include href="../../../../../spec/Channel_Interface_Mergeable_Conference.xml"/>
-<xi:include href="../../../../../spec/Channel_Interface_Splittable.xml"/>
+<xi:include href="../../../../spec/Channel_Interface_Conference.xml"/>
+<xi:include href="../../../../spec/Channel_Interface_Mergeable_Conference.xml"/>
+<xi:include href="../../../../spec/Channel_Interface_Splittable.xml"/>
 
-<xi:include href="../../../../../spec/Channel_Type_Call.xml"/>
+<xi:include href="../../../../spec/Channel_Type_Call.xml"/>
 
 </tp:spec>

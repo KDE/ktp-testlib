@@ -39,6 +39,7 @@ enum
 {
   PROP_OBJECT_PATH = 1,
   PROP_CONNECTION,
+  PROP_INTERFACES,
   PROP_HANDLE,
   PROP_SIMULATION_DELAY,
   PROP_LOCALLY_REQUESTED,
@@ -91,25 +92,15 @@ static void
 constructed (GObject *object)
 {
   ExampleCallStream *self = EXAMPLE_CALL_STREAM (object);
-  TpDBusDaemon *dbus_daemon;
   void (*chain_up) (GObject *) =
       ((GObjectClass *) example_call_stream_parent_class)->constructed;
-
-  dbus_daemon = tp_dbus_daemon_dup (NULL);
-  g_return_if_fail (dbus_daemon != NULL);
 
   if (chain_up != NULL)
     chain_up (object);
 
-  dbus_daemon = tp_dbus_daemon_dup (NULL);
-  g_return_if_fail (dbus_daemon != NULL);
-
-  dbus_g_connection_register_g_object (
-      tp_proxy_get_dbus_connection (dbus_daemon),
-      self->priv->object_path, object);
-
-  g_object_unref (dbus_daemon);
-  dbus_daemon = NULL;
+  tp_dbus_daemon_register_object (
+      tp_base_connection_get_dbus_daemon (self->priv->conn),
+      self->priv->object_path, self);
 
   if (self->priv->locally_requested)
     {
@@ -129,6 +120,8 @@ constructed (GObject *object)
     }
 }
 
+static const gchar * const empty_strv[] = { NULL };
+
 static void
 get_property (GObject *object,
     guint property_id,
@@ -141,6 +134,10 @@ get_property (GObject *object,
     {
     case PROP_OBJECT_PATH:
       g_value_set_string (value, self->priv->object_path);
+      break;
+
+    case PROP_INTERFACES:
+      g_value_set_static_boxed (value, empty_strv);
       break;
 
     case PROP_HANDLE:
@@ -261,6 +258,7 @@ example_call_stream_class_init (ExampleCallStreamClass *klass)
 {
   static TpDBusPropertiesMixinPropImpl stream_props[] = {
       { "Senders", "senders", NULL },
+      { "Interfaces", "interfaces", NULL },
       { NULL }
   };
   static TpDBusPropertiesMixinIfaceImpl prop_interfaces[] = {
@@ -319,6 +317,11 @@ example_call_stream_class_init (ExampleCallStreamClass *klass)
       FUTURE_HASH_TYPE_CONTACT_SENDING_STATE_MAP,
       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
   g_object_class_install_property (object_class, PROP_SENDERS, param_spec);
+
+  param_spec = g_param_spec_boxed ("interfaces", "Interfaces",
+      "List of D-Bus interfaces",
+      G_TYPE_STRV, G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+  g_object_class_install_property (object_class, PROP_INTERFACES, param_spec);
 
   signals[SIGNAL_REMOVED] = g_signal_new ("removed",
       G_TYPE_FROM_CLASS (klass), G_SIGNAL_RUN_LAST, 0, NULL, NULL,

@@ -4,14 +4,14 @@
 #include <glib-object.h>
 #include <telepathy-glib/channel.h>
 
-#include "tests/lib/glib/future/extensions/_gen/enums.h"
-#include "tests/lib/glib/future/extensions/_gen/svc-channel.h"
-#include "tests/lib/glib/future/extensions/_gen/svc-misc.h"
+#include "lib/glib/future/extensions/_gen/enums.h"
+#include "lib/glib/future/extensions/_gen/svc-channel.h"
+#include "lib/glib/future/extensions/_gen/svc-misc.h"
 
 G_BEGIN_DECLS
 
-#include "tests/lib/glib/future/extensions/_gen/gtypes.h"
-#include "tests/lib/glib/future/extensions/_gen/interfaces.h"
+#include "lib/glib/future/extensions/_gen/gtypes.h"
+#include "lib/glib/future/extensions/_gen/interfaces.h"
 
 G_END_DECLS
 
