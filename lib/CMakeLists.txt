@@ -13,7 +13,9 @@ set (ktelepathytest_SRCS
 set (ktelepathytest_HDRS
      Test
      test.h
+     GLibTest
      glibtest.h
+     TelepathyBaseTest
      telepathy-base-test.h
 )
 

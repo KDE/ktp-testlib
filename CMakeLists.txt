@@ -84,9 +84,8 @@ set (KTELEPATHY_TESTLIB_PYTHON_INSTALL_DIR
      "${KTELEPATHY_TESTLIB_DATA_INSTALL_DIR}/python"
 )
 
-# FIXME: This is blatantly the wrong place to install cmake files to.
 set (KTELEPATHY_TESTLIB_CMAKE_INSTALL_DIR
-     "${LIB_INSTALL_DIR}/KTelepathy/cmake"
+     "${LIB_INSTALL_DIR}/KTelepathy/TestLib/cmake"
 )
 
 # Add subdirectories
