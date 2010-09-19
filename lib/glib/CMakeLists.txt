@@ -86,10 +86,12 @@ set(tp_glib_tests_SRCS
     util.h)
 add_library(ktelepathyglibtest STATIC ${tp_glib_tests_SRCS})
 target_link_libraries(ktelepathyglibtest ${TELEPATHY_GLIB_LIBRARIES}
-                        example-cm-callable
-                        example-cm-contactlist
-                        example-cm-csh
-                        example-cm-echo
-                        example-cm-echo2
-                        future-example-cm-call
-                        future-example-cm-conference)
+                        ktptest-example-cm-callable
+                        ktptest-example-cm-contactlist
+                        ktptest-example-cm-csh
+                        ktptest-example-cm-echo
+                        ktptest-example-cm-echo2
+                        ktptest-future-example-cm-call
+                        ktptest-future-example-cm-conference)
+
+install(TARGETS ktelepathyglibtest DESTINATION ${LIB_INSTALL_DIR}/KTelepathy/TestLib)

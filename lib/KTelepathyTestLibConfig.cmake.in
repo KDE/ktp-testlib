@@ -13,17 +13,56 @@ set (KTELEPATHYTESTLIB_PYTHON_INSTALL_DIR "@KTELEPATHY_TESTLIB_DATA_INSTALL_DIR@
 set (KTELEPATHYTESTLIB_INCLUDE_DIR @INCLUDE_INSTALL_DIR@)
 set (KTELEPATHYTESTLIB_LIB_DIR @LIB_INSTALL_DIR@)
 
+set(CMAKE_MODULE_PATH "@LIB_INSTALL_DIR@/KTelepathy/TestLib/cmake" @CMAKE_MODULE_PATH@)
+
+set (TELEPATHYGLIB_MIN_VERSION "0.10.0")
+find_package(TelepathyGLib)
+
 # Compatibility
 if(WIN32)
 if(MINGW)
-  set(KTELEPATHYTESTLIB_LIBRARY     "@LIB_INSTALL_DIR@/libktelepathytest.dll.a")
+  set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo2.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.dll.a"
+                                      ${TELEPATHY_GLIB_LIBRARIES})
 else(MINGW)
-  set(KTELEPATHYTESTLIB_LIBRARY     "@LIB_INSTALL_DIR@/libktelepathytest.lib")
+  set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo2.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.lib"
+                                      ${TELEPATHY_GLIB_LIBRARIES})
 endif(MINGW)
 elseif(APPLE)
-  set(KTELEPATHYTESTLIB_LIBRARY     "@LIB_INSTALL_DIR@/libktelepathytest.dylib")
+  set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo2.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.dylib"
+                                      ${TELEPATHY_GLIB_LIBRARIES})
 else()
-  set(KTELEPATHYTESTLIB_LIBRARY     "@LIB_INSTALL_DIR@/libktelepathytest.a")
+  set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-echo2.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.a"
+                                      ${TELEPATHY_GLIB_LIBRARIES})
 endif()
-
-set(CMAKE_MODULE_PATH "@LIB_INSTALL_DIR@/KTelepathy/TestLib/cmake" @CMAKE_MODULE_PATH@)

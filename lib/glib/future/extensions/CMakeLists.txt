@@ -118,5 +118,7 @@ set(NEW_FILES
 list(APPEND tp_glib_tests_future_extensions_SRCS ${NEW_FILES})
 set_source_files_properties(${NEW_FILES} PROPERTIES GENERATED true)
 
-add_library(tp-glib-tests-future-extensions STATIC ${tp_glib_tests_future_extensions_SRCS})
-target_link_libraries(tp-glib-tests-future-extensions ${TPGLIB_LIBRARIES})
+add_library(ktptest-tp-glib-tests-future-extensions STATIC ${tp_glib_tests_future_extensions_SRCS})
+target_link_libraries(ktptest-tp-glib-tests-future-extensions ${TPGLIB_LIBRARIES})
+
+install(TARGETS ktptest-tp-glib-tests-future-extensions DESTINATION ${LIB_INSTALL_DIR}/KTelepathy/TestLib)

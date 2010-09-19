@@ -10,6 +10,8 @@ set(example_cm_echo2_SRCS
     protocol.c
     protocol.h)
 
-add_library(example-cm-echo2 STATIC ${example_cm_echo2_SRCS})
-target_link_libraries(example-cm-echo2 ${TPGLIB_LIBRARIES})
+add_library(ktptest-example-cm-echo2 STATIC ${example_cm_echo2_SRCS})
+target_link_libraries(ktptest-example-cm-echo2 ${TPGLIB_LIBRARIES})
 tpqt4_generate_manager_file(${CMAKE_CURRENT_SOURCE_DIR}/manager-file.py example_echo_2.manager connection-manager.c)
+
+install(TARGETS ktptest-example-cm-echo2 DESTINATION ${LIB_INSTALL_DIR}/KTelepathy/TestLib)

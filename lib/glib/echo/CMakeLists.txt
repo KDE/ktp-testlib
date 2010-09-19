@@ -11,6 +11,8 @@ set(example_cm_echo_SRCS
     im-manager.h
 )
 
-add_library(example-cm-echo STATIC ${example_cm_echo_SRCS})
-target_link_libraries(example-cm-echo ${TPGLIB_LIBRARIES})
+add_library(ktptest-example-cm-echo STATIC ${example_cm_echo_SRCS})
+target_link_libraries(ktptest-example-cm-echo ${TPGLIB_LIBRARIES})
 tpqt4_generate_manager_file(${CMAKE_CURRENT_SOURCE_DIR}/manager-file.py example_echo.manager connection-manager.c)
+
+install(TARGETS ktptest-example-cm-echo DESTINATION ${LIB_INSTALL_DIR}/KTelepathy/TestLib)
