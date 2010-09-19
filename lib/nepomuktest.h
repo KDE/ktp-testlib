@@ -1,7 +1,8 @@
-/* Base class for Telepathy-Qt4 based unit tests
+/*
+ * This file is part of telepathy-integration-daemon
  *
- * Copyright (C) 2009 Collabora Ltd. <http://www.collabora.co.uk/>
- * Copyright (C) 2009 Nokia Corporation
+ * Copyright (C) 2009-2010 Collabora Ltd. <info@collabora.co.uk>
+ *   @author Dario Freddi <dario.freddi@collabora.co.uk>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,35 +19,31 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef TP_GLIBTEST_H
-#define TP_GLIBTEST_H
 
-#include "test.h"
+#ifndef NEPOMUKTEST_H
+#define NEPOMUKTEST_H
+
+#include "glibtest.h"
 
 namespace Tp {
 
-class TELEPATHY_QT4_EXPORT GLibTest : public Tp::Test
+class NepomukTest : public Tp::GLibTest
 {
     Q_OBJECT
-    Q_DISABLE_COPY(GLibTest)
+    Q_DISABLE_COPY(NepomukTest)
 
 public:
 
-    GLibTest(QObject* parent = 0);
-    virtual ~GLibTest();
+    NepomukTest(QObject* parent = 0);
+    virtual ~NepomukTest();
 
-    void setupExampleConnection(const QString &account, const QString &accountId,
-                                const QString &protocol, const QString &contactList);
-    QPair< QString, QString > exampleConnectionData() const;
-
-protected Q_SLOTS:
+protected:
     virtual void cleanupTestCaseImpl();
-
-private:
-    class Private;
-    Private * const d;
+    virtual void initTestCaseImpl();
+    virtual void initImpl();
+    virtual void cleanupImpl();
 };
 
 }
 
-#endif // TP_GLIBTEST_H
+#endif // NEPOMUKTEST_H

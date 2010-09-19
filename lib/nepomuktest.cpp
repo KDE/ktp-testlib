@@ -19,41 +19,42 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef TELEPATHY_BASE_TEST_H
-#define TELEPATHY_BASE_TEST_H
 
-#include "glibtest.h"
-#include <Nepomuk/Resource>
-#include <TelepathyQt4/Types>
+#include "nepomuktest.h"
+#include <Nepomuk/ResourceManager>
 
-class TelepathyAccountMonitor;
-namespace Soprano {
-class Model;
+namespace Tp {
+
+NepomukTest::NepomukTest(QObject* parent)
+    : GLibTest(parent)
+{
 }
 
-
-class TelepathyBaseTest : public Tp::GlibTest
+NepomukTest::~NepomukTest()
 {
-    Q_OBJECT
-public:
-    TelepathyBaseTest(QObject* parent = 0);
-    virtual ~TelepathyBaseTest();
 
-    void initTestCaseConnectionImpl();
-    void cleanupTestCaseConnectionImpl();
+}
 
-    virtual void initTestCaseImpl();
-    virtual void cleanupTestCaseImpl();
-  //  virtual void createAccount();
+void NepomukTest::cleanupTestCaseImpl()
+{
+    Tp::GLibTest::cleanupTestCaseImpl();
+}
 
-    void setupAccountMonitor();
+void NepomukTest::initTestCaseImpl()
+{
+    Tp::Test::initTestCaseImpl();
 
-    Nepomuk::Resource mePersonContact();
+    Nepomuk::ResourceManager::instance()->init();
+}
 
-private:
-    class Private;
-    Private * const d;
-};
+void NepomukTest::initImpl()
+{
+    Tp::Test::initImpl();
+}
 
-#endif // TELEPATHY_BASE_TEST_H
+void NepomukTest::cleanupImpl()
+{
+    Tp::Test::cleanupImpl();
+}
 
+}

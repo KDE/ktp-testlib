@@ -7,7 +7,7 @@ add_subdirectory(glib)
 set (ktelepathytest_SRCS
      test.cpp
      glibtest.cpp
-     telepathy-base-test.cpp
+     nepomuktest.cpp
 )
 
 set (ktelepathytest_HDRS
@@ -15,8 +15,8 @@ set (ktelepathytest_HDRS
      test.h
      GLibTest
      glibtest.h
-     TelepathyBaseTest
-     telepathy-base-test.h
+     NepomukTest
+     nepomuktest.h
 )
 
 # Find telepathy.trig, which is installed already by telepathy-integration-daemon.

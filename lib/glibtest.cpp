@@ -1,13 +1,22 @@
-/*
-   This file is part of the Chakra project
-
-   Copyright (C) 2010 Dario Freddi <drf@chakra-project.org>
-
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-*/
+/* Base class for Telepathy-Qt4 based unit tests
+ *
+ * Copyright (C) 2009 Collabora Ltd. <http://www.collabora.co.uk/>
+ * Copyright (C) 2009 Nokia Corporation
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 #include "glibtest.h"
 
@@ -17,7 +26,7 @@
 
 namespace Tp {
 
-class GlibTest::Private
+class GLibTest::Private
 {
 public:
     Private() : exampleConnection(0) {}
@@ -26,19 +35,19 @@ public:
     QPair< QString, QString > exampleConnectionData;
 };
 
-GlibTest::GlibTest(QObject* parent)
+GLibTest::GLibTest(QObject* parent)
     : Test(parent)
     , d(new Private)
 {
 
 }
 
-GlibTest::~GlibTest()
+GLibTest::~GLibTest()
 {
     delete d;
 }
 
-void GlibTest::setupExampleConnection(const QString& account, const QString& accountId,
+void GLibTest::setupExampleConnection(const QString& account, const QString& accountId,
                                       const QString& protocol, const QString& contactList)
 {
     g_type_init();
@@ -70,12 +79,12 @@ void GlibTest::setupExampleConnection(const QString& account, const QString& acc
 
 }
 
-QPair< QString, QString > GlibTest::exampleConnectionData() const
+QPair< QString, QString > GLibTest::exampleConnectionData() const
 {
     return d->exampleConnectionData;
 }
 
-void GlibTest::cleanupTestCaseImpl()
+void GLibTest::cleanupTestCaseImpl()
 {
     if (d->exampleConnection != 0) {
         g_object_unref(d->exampleConnection);
