@@ -27,7 +27,7 @@
 
 namespace Tp {
 
-class NepomukTest : public Tp::GLibTest
+class TELEPATHY_QT4_EXPORT NepomukTest : public Tp::GLibTest
 {
     Q_OBJECT
     Q_DISABLE_COPY(NepomukTest)
