@@ -1,7 +1,7 @@
 /* Base class for Telepathy-Qt4 based unit tests
  *
- * Copyright (C) 2009 Collabora Ltd. <http://www.collabora.co.uk/>
- * Copyright (C) 2009 Nokia Corporation
+ * Copyright (C) 2009-2010 Collabora Ltd. <info@collabora.co.uk>
+ * Copyright (C) 2009-2010 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,6 @@
 
 #include "glib/contactlist/conn.h"
 
-namespace Tp {
 
 class GLibTest::Private
 {
@@ -91,9 +90,8 @@ void GLibTest::cleanupTestCaseImpl()
         d->exampleConnection = 0;
     }
 
-    Tp::Test::cleanupTestCaseImpl();
+    Test::cleanupTestCaseImpl();
 }
 
-}
 
 #include "glibtest.moc"

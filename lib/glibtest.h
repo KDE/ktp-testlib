@@ -1,7 +1,7 @@
 /* Base class for Telepathy-Qt4 based unit tests
  *
- * Copyright (C) 2009 Collabora Ltd. <http://www.collabora.co.uk/>
- * Copyright (C) 2009 Nokia Corporation
+ * Copyright (C) 2009-2010 Collabora Ltd. <info@collabora.co.uk>
+ * Copyright (C) 2009-2010 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef TP_GLIBTEST_H
-#define TP_GLIBTEST_H
+#ifndef TELEPATHY_TESTLIB_GLIBTEST_H
+#define TELEPATHY_TESTLIB_GLIBTEST_H
 
+#include "telepathy_testlib_export.h"
 #include "test.h"
 
-namespace Tp {
-
-class TELEPATHY_QT4_EXPORT GLibTest : public Tp::Test
+class TELEPATHY_TESTLIB_EXPORT GLibTest : public Test
 {
     Q_OBJECT
     Q_DISABLE_COPY(GLibTest)
@@ -47,6 +46,6 @@ private:
     Private * const d;
 };
 
-}
 
-#endif // TP_GLIBTEST_H
+#endif // Header guard
+

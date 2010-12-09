@@ -20,14 +20,13 @@
  */
 
 
-#ifndef NEPOMUKTEST_H
-#define NEPOMUKTEST_H
+#ifndef TELEPATHY_TESTLIB_NEPOMUKTEST_H
+#define TELEPATHY_TESTLIB_NEPOMUKTEST_H
 
 #include "glibtest.h"
+#include "telepathy_testlib_export.h"
 
-namespace Tp {
-
-class TELEPATHY_QT4_EXPORT NepomukTest : public Tp::GLibTest
+class TELEPATHY_TESTLIB_EXPORT NepomukTest : public GLibTest
 {
     Q_OBJECT
     Q_DISABLE_COPY(NepomukTest)
@@ -43,7 +42,5 @@ protected:
     virtual void initImpl();
     virtual void cleanupImpl();
 };
-
-}
 
 #endif // NEPOMUKTEST_H
