@@ -21,7 +21,7 @@
 #ifndef TELEPATHY_TESTLIB_TEST_H
 #define TELEPATHY_TESTLIB_TEST_H
 
-#include <kdemacros.h>
+#include "telepathy_testlib_export.h"
 
 #include <QtDBus>
 
@@ -36,7 +36,7 @@ namespace Tp
 class DBusProxy;
 }
 
-class KDE_EXPORT Test : public QObject
+class TELEPATHY_TESTLIB_EXPORT Test : public QObject
 {
     Q_OBJECT
 

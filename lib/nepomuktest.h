@@ -24,10 +24,9 @@
 #define TELEPATHY_TESTLIB_NEPOMUKTEST_H
 
 #include "glibtest.h"
+#include "telepathy_testlib_export.h"
 
-#include <kdemacros.h>
-
-class KDE_EXPORT NepomukTest : public GLibTest
+class TELEPATHY_TESTLIB_EXPORT NepomukTest : public GLibTest
 {
     Q_OBJECT
     Q_DISABLE_COPY(NepomukTest)

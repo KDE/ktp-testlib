@@ -21,11 +21,10 @@
 #ifndef TELEPATHY_TESTLIB_GLIBTEST_H
 #define TELEPATHY_TESTLIB_GLIBTEST_H
 
+#include "telepathy_testlib_export.h"
 #include "test.h"
 
-#include <kdemacros.h>
-
-class KDE_EXPORT GLibTest : public Test
+class TELEPATHY_TESTLIB_EXPORT GLibTest : public Test
 {
     Q_OBJECT
     Q_DISABLE_COPY(GLibTest)

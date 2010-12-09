@@ -4,6 +4,8 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}
 
 add_subdirectory(glib)
 
+add_definitions (-DMAKE_TELEPATHY_TESTLIB)
+
 set (ktelepathytest_SRCS
      test.cpp
      glibtest.cpp
@@ -17,6 +19,7 @@ set (ktelepathytest_HDRS
      glibtest.h
      NepomukTest
      nepomuktest.h
+     telepathy_testlib_export.h
 )
 
 # Find telepathy.trig, which is installed already by telepathy-integration-daemon.
