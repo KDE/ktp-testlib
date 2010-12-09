@@ -23,7 +23,9 @@
 
 #include "test.h"
 
-class  GLibTest : public Test
+#include <kdemacros.h>
+
+class KDE_EXPORT GLibTest : public Test
 {
     Q_OBJECT
     Q_DISABLE_COPY(GLibTest)

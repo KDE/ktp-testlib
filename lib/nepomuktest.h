@@ -25,7 +25,9 @@
 
 #include "glibtest.h"
 
-class NepomukTest : public GLibTest
+#include <kdemacros.h>
+
+class KDE_EXPORT NepomukTest : public GLibTest
 {
     Q_OBJECT
     Q_DISABLE_COPY(NepomukTest)
