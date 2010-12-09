@@ -18,14 +18,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef TP_GLIBTEST_H
-#define TP_GLIBTEST_H
+#ifndef TELEPATHY_TESTLIB_GLIBTEST_H
+#define TELEPATHY_TESTLIB_GLIBTEST_H
 
 #include "test.h"
 
-namespace Tp {
-
-class TELEPATHY_QT4_EXPORT GLibTest : public Tp::Test
+class  GLibTest : public Test
 {
     Q_OBJECT
     Q_DISABLE_COPY(GLibTest)
@@ -47,6 +45,6 @@ private:
     Private * const d;
 };
 
-}
 
-#endif // TP_GLIBTEST_H
+#endif // Header guard
+

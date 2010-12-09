@@ -1,7 +1,7 @@
 /* Base class for Telepathy-Qt4 based unit tests
  *
- * Copyright (C) 2009 Collabora Ltd. <http://www.collabora.co.uk/>
- * Copyright (C) 2009 Nokia Corporation
+ * Copyright (C) 2009-2010 Collabora Ltd. <info@collabora.co.uk>
+ * Copyright (C) 2009-2010 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +18,23 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef _TelepathyQt4_test_h_HEADER_GUARD_
-#define _TelepathyQt4_test_h_HEADER_GUARD_
+#ifndef TELEPATHY_TESTLIB_TEST_H
+#define TELEPATHY_TESTLIB_TEST_H
 
 #include <QtDBus>
 
 #include <QtTest>
 
 #include <TelepathyQt4/PendingOperation>
+#include <TelepathyQt4/PendingVariant>
 #include <TelepathyQt4/Constants>
 
 namespace Tp
 {
 class DBusProxy;
+}
 
-class TELEPATHY_QT4_EXPORT Test : public QObject
+class Test : public QObject
 {
     Q_OBJECT
 
@@ -45,17 +47,41 @@ public:
     QEventLoop *mLoop;
     void processDBusQueue(Tp::DBusProxy *proxy);
 
+protected:
+    template<typename T> bool waitForProperty(Tp::PendingVariant *pv, T *value);
+
 protected Q_SLOTS:
     void expectSuccessfulCall(QDBusPendingCallWatcher*);
     void expectSuccessfulCall(Tp::PendingOperation*);
+    void expectFailure(Tp::PendingOperation*);
+    void expectSuccessfulProperty(Tp::PendingOperation *op);
+    void onWatchdog();
 
     virtual void initTestCaseImpl();
     virtual void initImpl();
 
     virtual void cleanupImpl();
     virtual void cleanupTestCaseImpl();
+
+private:
+    // The property retrieved by expectSuccessfulProperty()
+    QVariant mPropertyValue;
 };
 
-} // Tp
+template<typename T>
+bool Test::waitForProperty(Tp::PendingVariant *pv, T *value)
+{
+    connect(pv,
+            SIGNAL(finished(Tp::PendingOperation*)),
+            SLOT(expectSuccessfulProperty(Tp::PendingOperation*)));
+    if (mLoop->exec() == 0) {
+        *value = qdbus_cast<T>(mPropertyValue);
+        return true;
+    }
+    else {
+        *value = T();
+        return false;
+    }
+}
 
 #endif

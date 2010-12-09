@@ -24,7 +24,6 @@
 
 #include "glib/contactlist/conn.h"
 
-namespace Tp {
 
 class GLibTest::Private
 {
@@ -91,9 +90,8 @@ void GLibTest::cleanupTestCaseImpl()
         d->exampleConnection = 0;
     }
 
-    Tp::Test::cleanupTestCaseImpl();
+    Test::cleanupTestCaseImpl();
 }
 
-}
 
 #include "glibtest.moc"

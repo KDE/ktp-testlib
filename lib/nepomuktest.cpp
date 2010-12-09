@@ -23,8 +23,6 @@
 #include "nepomuktest.h"
 #include <Nepomuk/ResourceManager>
 
-namespace Tp {
-
 NepomukTest::NepomukTest(QObject* parent)
     : GLibTest(parent)
 {
@@ -37,24 +35,23 @@ NepomukTest::~NepomukTest()
 
 void NepomukTest::cleanupTestCaseImpl()
 {
-    Tp::GLibTest::cleanupTestCaseImpl();
+    GLibTest::cleanupTestCaseImpl();
 }
 
 void NepomukTest::initTestCaseImpl()
 {
-    Tp::Test::initTestCaseImpl();
+    Test::initTestCaseImpl();
 
     Nepomuk::ResourceManager::instance()->init();
 }
 
 void NepomukTest::initImpl()
 {
-    Tp::Test::initImpl();
+    Test::initImpl();
 }
 
 void NepomukTest::cleanupImpl()
 {
-    Tp::Test::cleanupImpl();
+    Test::cleanupImpl();
 }
 
-}
