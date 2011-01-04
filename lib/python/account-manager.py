@@ -296,6 +296,10 @@ class Account(Object):
                         (dbus.UInt32(value[0]), unicode(value[1]),
                             unicode(value[2])),
                         signature='uss')
+                self._current_presence = dbus.Struct(
+                        (dbus.UInt32(value[0]), unicode(value[1]),
+                            unicode(value[2])),
+                        signature='uss')
             elif prop == 'Connection':
                 self._connection_path = dbus.ObjectPath(value)
             elif prop == 'ConnectionStatus':
@@ -304,6 +308,9 @@ class Account(Object):
                 raise ValueError('Read-only or nonexistent property')
 
             self.AccountPropertyChanged({prop: self._account_props()[prop]})
+            if prop == 'RequestedPresence':
+                self.AccountPropertyChanged({'CurrentPresence': self._account_props()['CurrentPresence']})
+
         elif iface == ACCOUNT_IFACE_AVATAR_IFACE:
             if prop == 'Avatar':
                 self._avatar = dbus.Struct(
