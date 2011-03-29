@@ -10,6 +10,10 @@
 
 #include "util.h"
 
+#ifdef G_OS_UNIX
+# include <unistd.h> /* for alarm() */
+#endif
+
 void
 tp_tests_proxy_run_until_prepared (gpointer proxy,
     const GQuark *features)
@@ -20,8 +24,10 @@ tp_tests_proxy_run_until_prepared (gpointer proxy,
   g_assert_no_error (error);
 }
 
-static void
-prepared_cb (GObject *object,
+/* A GAsyncReadyCallback whose user_data is a GAsyncResult **. It writes a
+ * reference to the result into that pointer. */
+void
+tp_tests_result_ready_cb (GObject *object,
     GAsyncResult *res,
     gpointer user_data)
 {
@@ -30,21 +36,33 @@ prepared_cb (GObject *object,
   *result = g_object_ref (res);
 }
 
+/* Run until *result contains a result. Intended to be used with a pending
+ * async call that uses tp_tests_result_ready_cb. */
+void
+tp_tests_run_until_result (GAsyncResult **result)
+{
+  /* not synchronous */
+  g_assert (*result == NULL);
+
+  while (*result == NULL)
+    g_main_context_iteration (NULL, TRUE);
+}
+
 gboolean
 tp_tests_proxy_run_until_prepared_or_failed (gpointer proxy,
     const GQuark *features,
     GError **error)
 {
   GAsyncResult *result = NULL;
+  gboolean r;
 
-  tp_proxy_prepare_async (proxy, features, prepared_cb, &result);
-  /* not synchronous */
-  g_assert (result == NULL);
+  tp_proxy_prepare_async (proxy, features, tp_tests_result_ready_cb, &result);
 
-  while (result == NULL)
-    g_main_context_iteration (NULL, TRUE);
+  tp_tests_run_until_result (&result);
 
-  return tp_proxy_prepare_finish (proxy, result, error);
+  r =  tp_proxy_prepare_finish (proxy, result, error);
+  g_object_unref (result);
+  return r;
 }
 
 TpDBusDaemon *
@@ -246,4 +264,28 @@ tp_tests_object_new_static_class (GType type,
   object = g_object_new_valist (type, first_property, ap);
   va_end (ap);
   return object;
+}
+
+static gboolean
+time_out (gpointer nil G_GNUC_UNUSED)
+{
+  g_error ("Timed out");
+  g_assert_not_reached ();
+  return FALSE;
+}
+
+void
+tp_tests_abort_after (guint sec)
+{
+  if (g_getenv ("TP_TESTS_NO_TIMEOUT") != NULL)
+    return;
+
+  g_timeout_add_seconds (sec, time_out, NULL);
+
+#ifdef G_OS_UNIX
+  /* On Unix, we can kill the process more reliably; this is a safety-catch
+   * in case it deadlocks or something, in which case the main loop won't be
+   * processed. The default handler for SIGALRM is process termination. */
+  alarm (sec + 2);
+#endif
 }
