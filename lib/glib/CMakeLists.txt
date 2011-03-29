@@ -61,22 +61,22 @@ compiler_warnings(CMAKE_C_FLAGS c ${NOT_RELEASE} "${desired_c}" "${undesired_c}"
 #add_subdirectory(future)
 
 set(tp_glib_tests_SRCS
-bug-19101-conn.c
-bug-19101-conn.h
-bug16307-conn.c
-bug16307-conn.h
+    bug-19101-conn.c
+    bug-19101-conn.h
+    bug16307-conn.c
+    bug16307-conn.h
     contacts-conn.c
     contacts-conn.h
     debug.h
-echo-chan.c
-echo-chan.h
-echo-cm.c
-echo-cm.h
-echo-conn.c
-echo-conn.h
-echo-im-manager.c
-echo-im-manager.h
-myassert.h
+    echo-chan.c
+    echo-chan.h
+    echo-cm.c
+    echo-cm.h
+    echo-conn.c
+    echo-conn.h
+    echo-im-manager.c
+    echo-im-manager.h
+    myassert.h
     params-cm.c
     params-cm.h
     simple-account.c
@@ -85,20 +85,20 @@ myassert.h
     simple-account-manager.h
     simple-channel-dispatch-operation.c
     simple-channel-dispatch-operation.h
-simple-channel-dispatcher.h
-simple-channel-dispatcher.c
-simple-channel-request.c
-simple-channel-request.h
+    simple-channel-dispatcher.h
+    simple-channel-dispatcher.c
+    simple-channel-request.c
+    simple-channel-request.h
     simple-client.c
     simple-client.h
     simple-conn.c
     simple-conn.h
     simple-manager.c
     simple-manager.h
-stream-tube-chan.h
-#stream-tube-chan.c
-stub-object.h
-stub-object.c
+    stream-tube-chan.h
+    #stream-tube-chan.c
+    stub-object.h
+    stub-object.c
     textchan-group.c
     textchan-group.h
     textchan-null.c
@@ -107,26 +107,26 @@ stub-object.c
     util.h)
 
 set(tp_glib_tests_INSTALL_HDRS
-bug-19101-conn.h
-bug16307-conn.h
+    bug-19101-conn.h
+    bug16307-conn.h
     contacts-conn.h
     debug.h
-echo-chan.h
-echo-cm.h
-echo-conn.h
-echo-im-manager.h
-myassert.h
+    echo-chan.h
+    echo-cm.h
+    echo-conn.h
+    echo-im-manager.h
+    myassert.h
     params-cm.h
     simple-account-manager.h
     simple-account.h
     simple-channel-dispatch-operation.h
-simple-channel-dispatcher.h
-simple-channel-request.h
+    simple-channel-dispatcher.h
+    simple-channel-request.h
     simple-client.h
     simple-conn.h
     simple-manager.h
-stream-tube-chan.h
-stub-object.h
+    stream-tube-chan.h
+    stub-object.h
     textchan-group.h
     textchan-null.h
     util.h

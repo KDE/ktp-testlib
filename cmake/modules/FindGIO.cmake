@@ -21,23 +21,23 @@ MESSAGE(STATUS "gio include dir: ${_LibGIOIncDir}")
 
 find_path(GIO_MAIN_INCLUDE_DIR glib.h
           PATH_SUFFIXES glib-2.0
-          PATHS ${_LibGIOIncDir} 
+          PATHS ${_LibGIOIncDir}
           NO_DEFAULT_PATH)
 
 find_path(GIO_MAIN_INCLUDE_DIR glib.h
           PATH_SUFFIXES glib-2.0
           PATHS ${_LibGIOIncDir} )
-          
+
 MESSAGE(STATUS "found gio main include dir: ${GIO_MAIN_INCLUDE_DIR}")
 
 # search the glibconfig.h include dir under the same root where the library is found
-find_library(GIO_LIBRARIES 
-             NAMES gio-2.0 
-             PATHS ${_LibGIOLinkDir} 
+find_library(GIO_LIBRARIES
+             NAMES gio-2.0
+             PATHS ${_LibGIOLinkDir}
              NO_DEFAULT_PATH)
 
-find_library(GIO_LIBRARIES 
-             NAMES gio-2.0 
+find_library(GIO_LIBRARIES
+             NAMES gio-2.0
              PATHS ${_LibGIOLinkDir})
 
 
