@@ -22,6 +22,7 @@ find_package(TelepathyGLib)
 if(WIN32)
 if(MINGW)
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.dll.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktelepathyglibtest.dll.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.dll.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.dll.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.dll.a"
@@ -33,6 +34,7 @@ if(MINGW)
                                       ${TELEPATHY_GLIB_LIBRARIES})
 else(MINGW)
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.lib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktelepathyglibtest.lib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.lib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.lib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.lib"
@@ -45,6 +47,7 @@ else(MINGW)
 endif(MINGW)
 elseif(APPLE)
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.dylib"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktelepathyglibtest.dylib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.dylib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.dylib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.dylib"
@@ -56,6 +59,7 @@ elseif(APPLE)
                                       ${TELEPATHY_GLIB_LIBRARIES})
 else()
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.a"
+                                      "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktelepathyglibtest.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-callable.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-contactlist.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-example-cm-csh.a"

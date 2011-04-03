@@ -38,7 +38,7 @@ GType tp_tests_simple_connection_manager_get_type (void);
 
 /* TYPE MACROS */
 #define TP_TESTS_TYPE_SIMPLE_CONNECTION_MANAGER \
-  (tp_tests_simple_connection_manager_get_type ())
+  (tp_tests_simpleconnection_manager_get_type ())
 #define TP_TESTS_SIMPLE_CONNECTION_MANAGER(obj) \
   (G_TYPE_CHECK_INSTANCE_CAST((obj), TP_TESTS_TYPE_SIMPLE_CONNECTION_MANAGER, \
                               simpleConnectionManager))

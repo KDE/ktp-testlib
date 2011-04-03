@@ -9,7 +9,7 @@ set (CMAKE_MODULE_PATH
 set (KDE_MIN_VERSION "4.4.75")
 set (SDO_MIN_VERSION "0.3.60")
 set (TELEPATHYQT4_MIN_VERSION "0.3.2")
-set (TELEPATHYGLIB_MIN_VERSION "0.10.0")
+set (TELEPATHYGLIB_MIN_VERSION "0.13.9")
 
 # Find all the required packages
 find_package (KDE4 ${KDE_MIN_VERSION} REQUIRED)
@@ -22,6 +22,7 @@ find_package (TelepathyGLib ${TELEPATHYGLIB_MIN_VERSION} REQUIRED)
 find_package (GLIB2 REQUIRED)
 find_package (GObject REQUIRED)
 find_package (DBusGLib REQUIRED)
+find_package (GIO REQUIRED)
 
 # Check the Python version is new enough
 set (REQUIRED_PY 2.5)
@@ -61,6 +62,7 @@ include_directories (${KDE4_INCLUDES}
                      ${GLIB2_INCLUDE_DIR}
                      ${GOBJECT_INCLUDE_DIR}
                      ${DBUS_GLIB_INCLUDE_DIR}
+                     ${GIO_INCLUDE_DIR}
                      ${CMAKE_SOURCE_DIR}
                      ${CMAKE_BINARY_DIR}
                      ${CMAKE_CURRENT_SOURCE_DIR}
