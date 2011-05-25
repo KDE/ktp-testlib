@@ -15,8 +15,12 @@ set (KTELEPATHYTESTLIB_LIB_DIR @LIB_INSTALL_DIR@)
 
 set(CMAKE_MODULE_PATH "@LIB_INSTALL_DIR@/KTelepathy/TestLib/cmake" @CMAKE_MODULE_PATH@)
 
-set (TELEPATHYGLIB_MIN_VERSION "0.10.0")
+set (TELEPATHYGLIB_MIN_VERSION "@TELEPATHYGLIB_MIN_VERSION@")
 find_package(TelepathyGLib)
+find_package (GLIB2 REQUIRED)
+find_package (GObject REQUIRED)
+find_package (DBusGLib REQUIRED)
+find_package (GIO REQUIRED)
 
 # Compatibility
 if(WIN32)
@@ -31,7 +35,12 @@ if(MINGW)
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.dll.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.dll.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.dll.a"
-                                      ${TELEPATHY_GLIB_LIBRARIES})
+                                      ${TELEPATHY_GLIB_LIBRARIES}
+                                      ${DBUS_GLIB_LIBRARIES}
+                                      ${GIO_LIBRARIES}
+                                      ${GLIB2_LIBRARIES}
+                                      ${GOBJECT_LIBRARIES}
+)
 else(MINGW)
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.lib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktelepathyglibtest.lib"
@@ -43,7 +52,12 @@ else(MINGW)
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.lib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.lib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.lib"
-                                      ${TELEPATHY_GLIB_LIBRARIES})
+                                      ${TELEPATHY_GLIB_LIBRARIES}
+                                      ${DBUS_GLIB_LIBRARIES}
+                                      ${GIO_LIBRARIES}
+                                      ${GLIB2_LIBRARIES}
+                                      ${GOBJECT_LIBRARIES}
+)
 endif(MINGW)
 elseif(APPLE)
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.dylib"
@@ -56,7 +70,12 @@ elseif(APPLE)
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.dylib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.dylib"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.dylib"
-                                      ${TELEPATHY_GLIB_LIBRARIES})
+                                      ${TELEPATHY_GLIB_LIBRARIES}
+                                      ${DBUS_GLIB_LIBRARIES}
+                                      ${GIO_LIBRARIES}
+                                      ${GLIB2_LIBRARIES}
+                                      ${GOBJECT_LIBRARIES}
+)
 else()
   set(KTELEPATHYTESTLIB_LIBRARIES     "@LIB_INSTALL_DIR@/libktelepathytest.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktelepathyglibtest.a"
@@ -68,5 +87,10 @@ else()
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-tp-glib-tests-future-extensions.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-call.a"
                                       "@LIB_INSTALL_DIR@/KTelepathy/TestLib/libktptest-future-example-cm-conference.a"
-                                      ${TELEPATHY_GLIB_LIBRARIES})
+                                      ${TELEPATHY_GLIB_LIBRARIES}
+                                      ${DBUS_GLIB_LIBRARIES}
+                                      ${GIO_LIBRARIES}
+                                      ${GLIB2_LIBRARIES}
+                                      ${GOBJECT_LIBRARIES}
+)
 endif()

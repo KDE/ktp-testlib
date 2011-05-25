@@ -130,7 +130,15 @@ install (FILES "${CMAKE_CURRENT_BINARY_DIR}/KTelepathyTestLibMacros.cmake"
          COMPONENT Devel
 )
 
-install (FILES ${CMAKE_SOURCE_DIR}/cmake/modules/FindTelepathyGLib.cmake
+set (ktelepathytest_CMAKE_FILES
+     ${CMAKE_SOURCE_DIR}/cmake/modules/FindTelepathyGLib.cmake
+     ${CMAKE_SOURCE_DIR}/cmake/modules/FindDBusGLib.cmake
+     ${CMAKE_SOURCE_DIR}/cmake/modules/FindGIO.cmake
+     ${CMAKE_SOURCE_DIR}/cmake/modules/FindGLIB2.cmake
+     ${CMAKE_SOURCE_DIR}/cmake/modules/FindGObject.cmake
+)
+
+install (FILES ${ktelepathytest_CMAKE_FILES}
          DESTINATION ${KTELEPATHY_TESTLIB_CMAKE_INSTALL_DIR}
          COMPONENT Devel)
 
