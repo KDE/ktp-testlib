@@ -85,9 +85,9 @@ class Generator(object):
 
 #include <QDBusPendingReply>
 
-#include <TelepathyQt4/AbstractInterface>
-#include <TelepathyQt4/DBusProxy>
-#include <TelepathyQt4/Global>
+#include <TelepathyQt/AbstractInterface>
+#include <TelepathyQt/DBusProxy>
+#include <TelepathyQt/Global>
 
 // basically the same as GLib's G_GNUC_DEPRECATED
 #ifndef TELEPATHY_GNUC_DEPRECATED

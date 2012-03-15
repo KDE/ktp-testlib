@@ -27,9 +27,9 @@
 
 #include <QtTest>
 
-#include <TelepathyQt4/PendingOperation>
-#include <TelepathyQt4/PendingVariant>
-#include <TelepathyQt4/Constants>
+#include <TelepathyQt/PendingOperation>
+#include <TelepathyQt/PendingVariant>
+#include <TelepathyQt/Constants>
 
 namespace Tp
 {
